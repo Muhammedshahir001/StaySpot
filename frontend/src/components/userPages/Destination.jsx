@@ -47,81 +47,85 @@ const Destination = () => {
       if (data.success) {
         setDestination(data.destination);
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
-  console.log(destination, "00000");
-  return (
-    <div className="mx-auto max-w-screen-2xl">
-      <Header />
-      <div className="flex flex-wrap">
-        {records.map((item) => (
-          <div className="bg-white shadow-xl p-5 rounded-tl-[20px] w-full max-w-[352px] mx-auto cursor-pointer hover:shadow-2xl transition hover:scale-105 ">
-            <figure>
-              <img
-                src={`${baseUrl}${item?.dest_img[0]}`}
-                className="rounded-tl-[20px] mb-8 h-64 w-full"
-                alt="Movie"
-              />
-            </figure>
-            <div className="mb-4 flex flex-col">
-              <div className="flex items-center mb-2">
-                <div className="text-lg mr-2" />
-                <div className="text-lg font-semibold">{item.dest_name}</div>
-              </div>
-              <div className="flex items-center">
-                <MdPlace className="text-lg mr-2" />
-                <div className="text-black">{item.place}</div>
-              </div>
-              <div className="flex items-center">
-                <div className="text-lg mr-2" />
-                <div className="text-black">{item.resortName}</div>
-              </div>
 
-              <button
-                onClick={() => {
-                  handleView(item._id);
-                }}
-                className="btn btn-primary"
-              >
-                View Details
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
-      {records.length > 0 && (
-        <div className="join flex  justify-center  my-4">
-          <button
-            className="join-item btn btn-outline  btn-info"
-            onClick={prePage}
-            disabled={currentpage === 1} // Disable Prev button on the first page
-          >
-            Prev
-          </button>
-          {numbers.map((n, i) => (
-            <div
-              className={`join ${currentpage === n ? "active" : ""}`}
-              key={i}
-            >
-              <button
-                className="join-item btn btn-outline btn-info"
-                onClick={() => changePage(n)}
-              >
-                {n}
-              </button>
+  return (
+    <>
+      <Header />
+      <div className="mx-auto max-w-screen-2xl">
+        <div className="flex flex-wrap">
+          {records.map((item) => (
+            <div className="bg-white shadow-xl p-5 rounded-tl-[20px] w-full max-w-[352px] mx-auto cursor-pointer hover:shadow-2xl transition hover:scale-105 ">
+              <figure>
+                <img
+                  src={`${baseUrl}${item?.dest_img[0]}`}
+                  className="rounded-tl-[20px] mb-8 h-64 w-full"
+                  alt="Movie"
+                />
+              </figure>
+              <div className="mb-4 flex flex-col">
+                <div className="flex items-center mb-2">
+                  <div className="text-lg mr-2" />
+                  <div className="text-lg font-semibold">{item.dest_name}</div>
+                </div>
+                <div className="flex items-center">
+                  <MdPlace className="text-lg mr-2" />
+                  <div className="text-black">{item.place}</div>
+                </div>
+                <div className="flex items-center">
+                  <div className="text-lg mr-2" />
+                  <div className="text-black">{item.resortName}</div>
+                </div>
+
+                <button
+                  onClick={() => {
+                    handleView(item._id);
+                  }}
+                  className="btn btn-primary"
+                >
+                  View Details
+                </button>
+              </div>
             </div>
           ))}
-          <button
-            className="join-item btn btn-outline btn-info"
-            onClick={nextPage}
-            disabled={currentpage === npage} // Disable Next button on the last page
-          >
-            Next
-          </button>
         </div>
-      )}
+        {records.length > 0 && (
+          <div className="join flex  justify-center  my-4">
+            <button
+              className="join-item btn btn-outline  btn-info"
+              onClick={prePage}
+              disabled={currentpage === 1} // Disable Prev button on the first page
+            >
+              Prev
+            </button>
+            {numbers.map((n, i) => (
+              <div
+                className={`join ${currentpage === n ? "active" : ""}`}
+                key={i}
+              >
+                <button
+                  className="join-item btn btn-outline btn-info"
+                  onClick={() => changePage(n)}
+                >
+                  {n}
+                </button>
+              </div>
+            ))}
+            <button
+              className="join-item btn btn-outline btn-info"
+              onClick={nextPage}
+              disabled={currentpage === npage} // Disable Next button on the last page
+            >
+              Next
+            </button>
+          </div>
+        )}
+      </div>
       <Footer />
-    </div>
+    </>
   );
 };
 

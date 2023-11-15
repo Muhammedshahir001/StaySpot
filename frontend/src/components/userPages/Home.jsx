@@ -183,7 +183,7 @@ const Home = () => {
       });
 
       setFilteredResorts(filterResorts);
-      navigate('/resortList')
+      navigate("/resortList");
     }
   };
   const today = new Date();
@@ -191,7 +191,6 @@ const Home = () => {
 
   const imageSrc =
     "https://res.cloudinary.com/dqlhedl48/image/upload/v1694625468/cdsxzffo3o3gusc1hfmw.jpg";
- 
 
   const data = [
     {
@@ -220,177 +219,217 @@ const Home = () => {
     },
   ];
   return (
-    <div className="mx-auto max-w-screen-2xl">
+    <>
       <Header />
-
-      <div
-        style={{
-          margin: "8px",
-        }}
-      >
-        <div className="carousel-item relative w-full">
-          <img
-            src={imageSrc}
-            className="w-full max-h-96 object-cover brightness-50"
-            style={{
-              borderRadius: "27px",
-            }}
-            alt="Img"
-          />
-          <div className="absolute inset-0 flex flex-col items-center justify-center mb-16">
-            <div
-              className="text-slate-100 text-4xl font-thin pt-0"
-              style={{ fontFamily: "monospace", fontStyle: "italic" }}
-            >
-              Welcome To StaySpot
-            </div>
-            <br />
-
-            <div className="px-[30px] py-4 max-w-[1170px] mx-auto flex flex-col lg:flex-row justify-between gap-4 lg:gap-x-3 relative lg:-top-4 lg:shadow-md rounded-lg bg-blue-50">
-              <select
-                className="w-64 h-10 max-w-xs"
-                value={selectedPlace}
-                onChange={(e) => setSelectedPlace(e.target.value)}
+      <div className="mx-auto max-w-screen-2xl">
+        <div
+          style={{
+            margin: "8px",
+          }}
+        >
+          <div className="carousel-item relative w-full">
+            <img
+              src={imageSrc}
+              className="w-full max-h-96 object-cover brightness-50"
+              style={{
+                borderRadius: "27px",
+              }}
+              alt="Img"
+            />
+            <div className="absolute inset-0 flex flex-col items-center justify-center mb-16">
+              <div
+                className="text-slate-100 text-4xl font-thin pt-0"
+                style={{ fontFamily: "monospace", fontStyle: "italic" }}
               >
-                <option disabled value="">
-                  Select your Stay
-                </option>
-                {uniquePlaces.map((place, index) => (
-                  <option key={index}>{place}</option>
-                ))}
-              </select>
-
-              <div className="ml-2">
-                <DatePicker
-                  selected={checkInDate}
-                  dateFormat="dd MMMM yyyy"
-                  onChange={handleCheckInDateChange}
-                  placeholderText="Check-in"
-                  className="w-64 h-10 max-w-xs"
-                  minDate={today}
-                />
+                Welcome To StaySpot
               </div>
+              <br />
 
-              <div className="ml-4">
-                <DatePicker
-                  selected={checkOutDate}
-                  dateFormat="dd MMMM yyyy"
-                  onChange={handleCheckOutDateChange}
-                  placeholderText="Check-out"
+              <div className="px-[30px] py-4 max-w-[1170px] mx-auto flex flex-col lg:flex-row justify-between gap-4 lg:gap-x-3 relative lg:-top-4 lg:shadow-md rounded-lg bg-blue-50">
+                <select
                   className="w-64 h-10 max-w-xs"
-                  minDate={checkInDate ? new Date(checkInDate) : null}
-                />
-              </div>
+                  value={selectedPlace}
+                  onChange={(e) => setSelectedPlace(e.target.value)}
+                >
+                  <option disabled value="">
+                    Select your Stay
+                  </option>
+                  {uniquePlaces.map((place, index) => (
+                    <option key={index}>{place}</option>
+                  ))}
+                </select>
 
-              <button onClick={handleSearch} className="btn btn-primary">
-                Search Resorts
-              </button>
+                <div className="ml-2">
+                  <DatePicker
+                    selected={checkInDate}
+                    dateFormat="dd MMMM yyyy"
+                    onChange={handleCheckInDateChange}
+                    placeholderText="Check-in"
+                    className="w-64 h-10 max-w-xs"
+                    minDate={today}
+                  />
+                </div>
+
+                <div className="ml-4">
+                  <DatePicker
+                    selected={checkOutDate}
+                    dateFormat="dd MMMM yyyy"
+                    onChange={handleCheckOutDateChange}
+                    placeholderText="Check-out"
+                    className="w-64 h-10 max-w-xs"
+                    minDate={checkInDate ? new Date(checkInDate) : null}
+                  />
+                </div>
+
+                <button onClick={handleSearch} className="btn btn-primary">
+                  Search Resorts
+                </button>
+              </div>
             </div>
-          </div>
 
-          <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-            <a
-              // href={`#slide${img.id === 1 ? images.length : img.id - 1}`}
-              className="btn btn-circle btn-ghost"
-            >
-              ❮
-            </a>
-            <a
-              // href={`#slide${img.id === images.length ? 1 : img.id + 1}`}
-              className="btn btn-circle btn-ghost"
-            >
-              ❯
-            </a>
+            <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+              <p
+                // href={`#slide${img.id === 1 ? images.length : img.id - 1}`}
+                className="btn btn-circle btn-ghost"
+              >
+                ❮
+              </p>
+              <p
+                // href={`#slide${img.id === images.length ? 1 : img.id + 1}`}
+                className="btn btn-circle btn-ghost"
+              >
+                ❯
+              </p>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className=" my-10 card border border-stone-400 rounded-2xl shadow-2xl bg-opacity-25 bg-green-500 mx-2">
-        {filteredResorts.length > 0 ? (
-          <div className="card">
-            <h1 className="p-5 font-extrabold md:text-2xl text-center underline-offset-8">
-              Filtered Resorts
-            </h1>
-            <div className="flex flex-wrap">
-              {filteredResorts.map((item) => (
-                <div
-                  className="bg-white shadow-2xl p-4 w-full max-w-[352px] mx-auto cursor-pointer hover:shadow-2xl transition hover:scale-105 border-sky-300"
-                  key={item.resortname}
-                >
-                  <figure>
-                    <img
-                      src={`${item.image[0]}`}
-                      alt="resort img"
-                      className="mb-1"
-                    />
-                  </figure>
-                  <div className="flex flex-col">
-                    <div className="flex items-center ">
-                      <div className="text-lg font-semibold">
-                        {item.resortname}
+        <div className=" my-10 card border border-stone-400 rounded-2xl shadow-2xl bg-opacity-25 bg-green-500 mx-2">
+          {filteredResorts.length > 0 ? (
+            <div className="card">
+              <h1 className="p-5 font-extrabold md:text-2xl text-center underline-offset-8">
+                Filtered Resorts
+              </h1>
+              <div className="flex flex-wrap">
+                {filteredResorts.map((item) => (
+                  <div
+                    className="bg-white shadow-2xl p-4 w-full max-w-[352px] mx-auto cursor-pointer hover:shadow-2xl transition hover:scale-105 border-sky-300"
+                    key={item.resortname}
+                  >
+                    <figure>
+                      <img
+                        src={`${item.image[0]}`}
+                        alt="resort img"
+                        className="mb-1"
+                      />
+                    </figure>
+                    <div className="flex flex-col">
+                      <div className="flex items-center ">
+                        <div className="text-lg font-semibold">
+                          {item.resortname}
+                        </div>
                       </div>
-                    </div>
 
-                    <div className="flex items-center">
-                      <MdPlace className="text-lg mr-2" />
-                      <div className="text-black">{item.place}</div>
-                    </div>
-                    <div className="flex items-center">
-                      <FaRupeeSign className="text-sm" />
-                      <div className="text-black">{item.price} per room</div>
-                    </div>
+                      <div className="flex items-center">
+                        <MdPlace className="text-lg mr-2" />
+                        <div className="text-black">{item.place}</div>
+                      </div>
+                      <div className="flex items-center">
+                        <FaRupeeSign className="text-sm" />
+                        <div className="text-black">{item.price} per room</div>
+                      </div>
 
-                    <button
-                      className="bg-transparent hover:bg-indigo-950 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-                      onClick={() => {
-                        handleView(item._id);
-                      }}
-                    >
-                      View Details
-                    </button>
+                      <button
+                        className="bg-transparent hover:bg-indigo-950 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                        onClick={() => {
+                          handleView(item._id);
+                        }}
+                      >
+                        View Details
+                      </button>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        ) : (
+          ) : (
+            <div className="card-body">
+              <h1 className="p-5 font-extrabold md:text-2xl text-center  underline-offset-8">
+                Recommended Resorts
+              </h1>
+              <div className="flex flex-wrap">
+                {resort.map((item) => (
+                  <div
+                    className="bg-white shadow-2xl p-4  w-full max-w-[352px]  mx-auto cursor-pointer hover:shadow-2xl transition rounded-md hover:scale-105 border-sky-300 "
+                    key={item.resortname}
+                  >
+                    <figure>
+                      <img
+                        src={`${item.image[0]}`}
+                        alt="resort img"
+                        className="mb-7 rounded-md  h-48 w-80 "
+                      />
+                    </figure>
+                    <div className="flex flex-col">
+                      <div className="flex items-center ">
+                        <div className="text-lg font-semibold">
+                          {item.resortname}
+                        </div>
+                      </div>
+
+                      <div className="flex items-center">
+                        <MdPlace className="text-lg mr-2" />
+                        <div className="text-black">{item.place}</div>
+                      </div>
+                      <div className="flex items-center">
+                        <FaRupeeSign className="text-sm" />
+                        <div className="text-black">{item.price} per room</div>
+                      </div>
+
+                      <button
+                        className="bg-transparent hover:bg-indigo-950 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                        onClick={() => {
+                          handleView(item._id);
+                        }}
+                      >
+                        View Details
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
           <div className="card-body">
             <h1 className="p-5 font-extrabold md:text-2xl text-center  underline-offset-8">
-              Recommended Resorts
+              Recommended Activities
             </h1>
             <div className="flex flex-wrap">
-              {resort.map((item) => (
-                <div
-                  className="bg-white shadow-2xl p-4  w-full max-w-[352px]  mx-auto cursor-pointer hover:shadow-2xl transition rounded-md hover:scale-105 border-sky-300 "
-                  key={item.resortname}
-                >
+              {adventure.map((item) => (
+                <div className="bg-white shadow-2xl p-4  rounded-md w-full max-w-[352px]  mx-auto cursor-pointer hover:shadow-2xl transition hover:scale-105 border-sky-300">
                   <figure>
                     <img
-                      src={`${item.image[0]}`}
-                      alt="resort img"
-                      className="mb-7 rounded-md  h-48 w-80 "
+                      src={`${baseUrl}${item?.image[0]}`}
+                      className="mb-7 rounded-md  h-48 w-80"
+                      alt="Movie"
                     />
                   </figure>
                   <div className="flex flex-col">
-                    <div className="flex items-center ">
+                    <div className="flex items-center">
                       <div className="text-lg font-semibold">
-                        {item.resortname}
+                        {item.activity}
                       </div>
                     </div>
-
                     <div className="flex items-center">
                       <MdPlace className="text-lg mr-2" />
-                      <div className="text-black">{item.place}</div>
-                    </div>
-                    <div className="flex items-center">
-                      <FaRupeeSign className="text-sm" />
-                      <div className="text-black">{item.price} per room</div>
+                      <div className="text-lg font-semibold">{item.place}</div>
                     </div>
 
                     <button
-                      className="bg-transparent hover:bg-indigo-950 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                      className="btn btn-primary "
                       onClick={() => {
-                        handleView(item._id);
+                        handleClick(item._id);
                       }}
                     >
                       View Details
@@ -400,150 +439,112 @@ const Home = () => {
               ))}
             </div>
           </div>
-        )}
-
-        <div className="card-body">
-          <h1 className="p-5 font-extrabold md:text-2xl text-center  underline-offset-8">
-            Recommended Activities
-          </h1>
-          <div className="flex flex-wrap">
-            {adventure.map((item) => (
-              <div className="bg-white shadow-2xl p-4  rounded-md w-full max-w-[352px]  mx-auto cursor-pointer hover:shadow-2xl transition hover:scale-105 border-sky-300">
-                <figure>
-                  <img
-                    src={`${baseUrl}${item?.image[0]}`}
-                    className="mb-7 rounded-md  h-48 w-80"
-                    alt="Movie"
-                  />
-                </figure>
-                <div className="flex flex-col">
-                  <div className="flex items-center">
-                    <div className="text-lg font-semibold">{item.activity}</div>
-                  </div>
-                  <div className="flex items-center">
-                    <MdPlace className="text-lg mr-2" />
-                    <div className="text-lg font-semibold">{item.place}</div>
-                  </div>
-
-                  <button
-                    className="btn btn-primary "
-                    onClick={() => {
-                      handleClick(item._id);
-                    }}
-                  >
-                    View Details
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="card-body">
-          <h1 className="p-5 font-extrabold md:text-2xl text-center  underline-offset-8">
-            Poppular Destinations....
-          </h1>
-          <div className="flex flex-wrap ">
-            {destination.map((item) => (
-              <div className="bg-white shadow-2xl p-4  rounded-md w-full max-w-[352px]  mx-auto cursor-pointer hover:shadow-2xl transition hover:scale-105 border-sky-300">
-                <figure>
-                  <img
-                    src={`${baseUrl}${item?.dest_img[0]}`}
-                    className="mb-7 rounded-md  h-48 w-80 "
-                    alt="Movie"
-                  />
-                </figure>
-                <div className="flex flex-col">
-                  <div className="flex items-center mb-2">
-                    <div className="text-lg mr-2" />
-                    <div className="text-lg font-semibold">
-                      {item.dest_name}
+          <div className="card-body">
+            <h1 className="p-5 font-extrabold md:text-2xl text-center  underline-offset-8">
+              Poppular Destinations....
+            </h1>
+            <div className="flex flex-wrap ">
+              {destination.map((item) => (
+                <div className="bg-white shadow-2xl p-4  rounded-md w-full max-w-[352px]  mx-auto cursor-pointer hover:shadow-2xl transition hover:scale-105 border-sky-300">
+                  <figure>
+                    <img
+                      src={`${baseUrl}${item?.dest_img[0]}`}
+                      className="mb-7 rounded-md  h-48 w-80 "
+                      alt="Movie"
+                    />
+                  </figure>
+                  <div className="flex flex-col">
+                    <div className="flex items-center mb-2">
+                      <div className="text-lg mr-2" />
+                      <div className="text-lg font-semibold">
+                        {item.dest_name}
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex items-center">
-                    <MdPlace className="text-lg mr-2" />
-                    <div className="text-black">{item.place}</div>
-                  </div>
+                    <div className="flex items-center">
+                      <MdPlace className="text-lg mr-2" />
+                      <div className="text-black">{item.place}</div>
+                    </div>
 
-                  <button
-                    className="btn btn-primary mt-5"
-                    onClick={() => {
-                      handleSee(item._id);
-                    }}
-                  >
-                    View Details
-                  </button>
+                    <button
+                      className="btn btn-primary mt-5"
+                      onClick={() => {
+                        handleSee(item._id);
+                      }}
+                    >
+                      View Details
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className=" pr-4">
+          <div id="services" className="pt-20 grid grid-cols-4 gap-8">
+            {data.map((service, index) => {
+              return (
+                <div className="service flex flex-col bg-slate-100 gap-4 p-8 bg-aliceblue shadow-lg transition-transform transform translate-x-4 -translate-y-10 hover:translate-x-0 hover:-translate-y-4 hover:shadow-md">
+                  <div className="icon">
+                    <img src={service.icon} alt="" className="h-10" />
+                  </div>
+                  <h3 className="text-xl font-bold">{service.title}</h3>
+                  <p>{service.subTitle}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        <h1 className="p-5 font-extrabold md:text-2xl text-center  underline-offset-8">
+          Our Customer's Gallery
+        </h1>
+        <div className="carousel carousel-center rounded-box">
+          <div className="carousel-item ">
+            <img
+              src="https://res.cloudinary.com/dqlhedl48/image/upload/v1695718523/banner/hynsah7dn50mtwqi1wcs.webp"
+              alt="img"
+              className="shadow-lg p-5"
+            />
+          </div>
+          <div className="carousel-item">
+            <img
+              src="https://res.cloudinary.com/dqlhedl48/image/upload/v1695718610/banner/i252wteugrqrj3nkc4qe.webp"
+              alt="img"
+              className="shadow-lg p-5"
+            />
+          </div>
+          <div className="carousel-item">
+            <img
+              src="https://res.cloudinary.com/dqlhedl48/image/upload/v1695718665/banner/nrx7jso4zv3i3zpv05z5.webp"
+              alt="img"
+              className="shadow-lg p-5"
+            />
+          </div>
+          <div className="carousel-item">
+            <img
+              src="https://res.cloudinary.com/dqlhedl48/image/upload/v1695718711/banner/gbdjxvzn0nx7kywkm2kj.webp"
+              alt="img"
+              className="shadow-lg p-5"
+            />
+          </div>
+          <div className="carousel-item">
+            <img
+              src="https://res.cloudinary.com/dqlhedl48/image/upload/v1695718761/banner/n8fe8bzxna9ao0ovkt7u.webp"
+              alt="img"
+              className="shadow-lg p-5"
+            />
+          </div>
+          <div className="carousel-item">
+            <img
+              src="https://res.cloudinary.com/dqlhedl48/image/upload/v1695718806/banner/kcm1m3zgijx1fo0j21tm.webp"
+              alt="img"
+              className="shadow-lg p-5"
+            />
           </div>
         </div>
       </div>
-
-      <div className=" pr-4">
-        <div id="services" className="pt-20 grid grid-cols-4 gap-8">
-          {data.map((service, index) => {
-            return (
-              <div className="service flex flex-col bg-slate-100 gap-4 p-8 bg-aliceblue shadow-lg transition-transform transform translate-x-4 -translate-y-10 hover:translate-x-0 hover:-translate-y-4 hover:shadow-md">
-                <div className="icon">
-                  <img src={service.icon} alt="" className="h-10" />
-                </div>
-                <h3 className="text-xl font-bold">{service.title}</h3>
-                <p>{service.subTitle}</p>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-      <h1 className="p-5 font-extrabold md:text-2xl text-center  underline-offset-8">
-        Our Customer's Gallery
-      </h1>
-      <div className="carousel carousel-center rounded-box">
-        <div className="carousel-item ">
-          <img
-            src="https://res.cloudinary.com/dqlhedl48/image/upload/v1695718523/banner/hynsah7dn50mtwqi1wcs.webp"
-            alt="img"
-            className="shadow-lg p-5"
-          />
-        </div>
-        <div className="carousel-item">
-          <img
-            src="https://res.cloudinary.com/dqlhedl48/image/upload/v1695718610/banner/i252wteugrqrj3nkc4qe.webp"
-            alt="img"
-            className="shadow-lg p-5"
-          />
-        </div>
-        <div className="carousel-item">
-          <img
-            src="https://res.cloudinary.com/dqlhedl48/image/upload/v1695718665/banner/nrx7jso4zv3i3zpv05z5.webp"
-            alt="img"
-            className="shadow-lg p-5"
-          />
-        </div>
-        <div className="carousel-item">
-          <img
-            src="https://res.cloudinary.com/dqlhedl48/image/upload/v1695718711/banner/gbdjxvzn0nx7kywkm2kj.webp"
-            alt="img"
-            className="shadow-lg p-5"
-          />
-        </div>
-        <div className="carousel-item">
-          <img
-            src="https://res.cloudinary.com/dqlhedl48/image/upload/v1695718761/banner/n8fe8bzxna9ao0ovkt7u.webp"
-            alt="img"
-            className="shadow-lg p-5"
-          />
-        </div>
-        <div className="carousel-item">
-          <img
-            src="https://res.cloudinary.com/dqlhedl48/image/upload/v1695718806/banner/kcm1m3zgijx1fo0j21tm.webp"
-            alt="img"
-            className="shadow-lg p-5"
-          />
-        </div>
-      </div>
-
       <Footer />
-    </div>
+    </>
   );
 };
 

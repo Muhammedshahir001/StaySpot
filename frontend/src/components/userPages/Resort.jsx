@@ -123,7 +123,7 @@ const Resort = () => {
       setFilteredResorts([]); // Clear previous search results
       return;
     }
-    
+
     if (selectedPlace && checkInDate && checkOutDate) {
       // Formatting the date into the correct format
       const new_checkin = checkInDate;
@@ -186,87 +186,137 @@ const Resort = () => {
   const uniquePlaces = [...new Set(resort.map((item) => item.place))];
 
   return (
-    <div className="mx-auto max-w-screen-2xl">
+    <>
       <Header />
+      <div className="mx-auto max-w-screen-2xl">
+        <div className="px-[30px] py-4 w-full bg-gray-300 mx-auto flex flex-col lg:flex-row justify-between gap-4 lg:gap-x-3 relative lg:-top-4 lg:shadow-md rounded-lg mt-10">
+          <select
+            className="w-64 h-10 max-w-xs rounded-md"
+            value={selectedPlace}
+            onChange={(e) => setSelectedPlace(e.target.value)}
+          >
+            <option disabled value="">
+              Select your Stay
+            </option>
+            {uniquePlaces.map((place, index) => (
+              <option key={index}>{place}</option>
+            ))}
+          </select>
 
-      <div className="px-[30px] py-4 max-w-[1170px] bg-white mx-auto flex flex-col lg:flex-row justify-between gap-4 lg:gap-x-3 relative lg:-top-4 lg:shadow-md rounded-lg mt-10">
-        <select
-          className="w-64 h-10 max-w-xs"
-          value={selectedPlace}
-          onChange={(e) => setSelectedPlace(e.target.value)}
-        >
-          <option disabled value="">
-            Select your Stay
-          </option>
-          {uniquePlaces.map((place, index) => (
-            <option key={index}>{place}</option>
-          ))}
-        </select>
+          <div className="ml-2 ">
+            <DatePicker
+              selected={checkInDate}
+              dateFormat="dd MMMM yyyy"
+              onChange={handleCheckInDateChange}
+              placeholderText="Check-in"
+              className="w-64 h-10 max-w-xs rounded-md  px-3"
+              minDate={today}
+            />
+          </div>
 
-        <div className="ml-2">
-          <DatePicker
-            selected={checkInDate}
-            dateFormat="dd MMMM yyyy"
-            onChange={handleCheckInDateChange}
-            placeholderText="Check-in"
-            className="w-64 h-10 max-w-xs"
-            minDate={today}
-          />
+          <div className="ml-4">
+            <DatePicker
+              selected={checkOutDate}
+              dateFormat="dd MMMM yyyy"
+              onChange={handleCheckOutDateChange}
+              placeholderText="Check-out"
+              className="w-64 h-10 max-w-xs rounded-md  px-3"
+              minDate={checkInDate ? new Date(checkInDate) : null}
+            />
+          </div>
+          <div className="flex items-center mb-2">
+            <input
+              type="number"
+              placeholder="Min Price"
+              value={minPrice}
+              onChange={(e) => setMinPrice(parseFloat(e.target.value))}
+              className="w-32 h-10 px-3 max-w-xs mr-2 rounded-md"
+            />
+            <input
+              type="number"
+              placeholder="Max Price"
+              value={maxPrice}
+              onChange={(e) => setMaxPrice(parseFloat(e.target.value))}
+              className="w-32 h-10 max-w-xs rounded-md  px-3"
+            />
+          </div>
+
+          <button
+            className="btn join-item"
+            onClick={() => {
+              handleSearch();
+            }}
+          >
+            Search
+          </button>
         </div>
 
-        <div className="ml-4">
-          <DatePicker
-            selected={checkOutDate}
-            dateFormat="dd MMMM yyyy"
-            onChange={handleCheckOutDateChange}
-            placeholderText="Check-out"
-            className="w-64 h-10 max-w-xs"
-            minDate={checkInDate ? new Date(checkInDate) : null}
-          />
-        </div>
-        <div className="flex items-center mb-2">
-          <input
-            type="number"
-            placeholder="Min Price"
-            value={minPrice}
-            onChange={(e) => setMinPrice(parseFloat(e.target.value))}
-            className="w-32 h-10 max-w-xs mr-2"
-          />
-          <input
-            type="number"
-            placeholder="Max Price"
-            value={maxPrice}
-            onChange={(e) => setMaxPrice(parseFloat(e.target.value))}
-            className="w-32 h-10 max-w-xs"
-          />
-        </div>
+        <div className="">
+          {selectedPlace && checkInDate && checkOutDate ? (
+            filteredResorts?.length > 0 ? (
+              filteredResorts.map((item) => (
+                <div
+                  className="bg-white shadow-1 p-5  rounded-tl-[20px] w-full max-w-[352px] mx-auto cursor-pointer hover:shadow-2xl transition hover:scale-105"
+                  key={item.resortname}
+                >
+                  <figure>
+                    <img
+                      src={`${item.image[0]}`}
+                      alt="images_resort"
+                      className="rounded-tl-[20px] mb-8"
+                    />
+                  </figure>
+                  <div className="mb-4 flex flex-col">
+                    <div className="flex items-center mb-2">
+                      <BiHomeAlt className="text-lg mr-2" />
+                      <div className="text-lg font-semibold">
+                        {item.resortname}
+                      </div>
+                    </div>
 
-        <button
-          className="btn join-item"
-          onClick={() => {
-            handleSearch();
-          }}
-        >
-          Search
-        </button>
-      </div>
+                    <div className="flex items-center">
+                      <MdPlace className="text-lg mr-2" />
+                      <div className="text-black">{item.place}</div>
+                    </div>
 
-      <div className="">
-        {selectedPlace && checkInDate && checkOutDate ? (
-          filteredResorts?.length > 0 ? (
-            filteredResorts.map((item) => (
+                    <div className="flex items-center">
+                      <FaBed className="text-lg mr-2" />
+                      <div className="text-lg font-semibold">
+                        {item.number_room}
+                      </div>
+                    </div>
+
+                    <button
+                      onClick={() => handleView(item._id)}
+                      className="btn btn-primary"
+                    >
+                      View Details
+                    </button>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="text-2xl mx-auto flex justify-center">
+                <img
+                  src="https://res.cloudinary.com/dqlhedl48/image/upload/v1694444884/g8uh7daaayflbm4zogpr.gif"
+                  alt="images_resort"
+                />
+              </div>
+            )
+          ) : (
+            records.map((item) => (
               <div
-                className="bg-white shadow-1 p-5  rounded-tl-[20px] w-full max-w-[352px] mx-auto cursor-pointer hover:shadow-2xl transition hover:scale-105"
+                className="flex items-center m-5 max-w-4xl bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 shadow-1 rounded-tl-[20px] mx-auto cursor-pointer hover:shadow-2xl transition hover:scale-105"
                 key={item.resortname}
               >
                 <figure>
                   <img
                     src={`${item.image[0]}`}
                     alt="images_resort"
-                    className="rounded-tl-[20px] mb-8"
+                    className="object-cover w-48 md:h-auto md:w-48 md:rounded-l-lg ml-5"
                   />
                 </figure>
-                <div className="mb-4 flex flex-col">
+                <div className="flex flex-col flex-grow justify-between p-4 leading-normal">
                   <div className="flex items-center mb-2">
                     <BiHomeAlt className="text-lg mr-2" />
                     <div className="text-lg font-semibold">
@@ -285,102 +335,54 @@ const Resort = () => {
                       {item.number_room}
                     </div>
                   </div>
-
+                </div>{" "}
+                <div style={resortStyle}>
                   <button
                     onClick={() => handleView(item._id)}
-                    className="btn btn-primary"
+                    className="bg-blue-500 hover:bg-indigo-950 text-white font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
                   >
                     View Details
                   </button>
                 </div>
               </div>
             ))
-          ) : (
-            <div className="text-2xl mx-auto flex justify-center">
-              <img
-                src="https://res.cloudinary.com/dqlhedl48/image/upload/v1694444884/g8uh7daaayflbm4zogpr.gif"
-                alt="images_resort"
-              />
-            </div>
-          )
-        ) : (
-          records.map((item) => (
-            <div
-              className="flex items-center m-5 max-w-4xl bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 shadow-1 rounded-tl-[20px] mx-auto cursor-pointer hover:shadow-2xl transition hover:scale-105"
-              key={item.resortname}
+          )}
+        </div>
+        <ToastContainer />
+        {records.length > 0 && (
+          <div className="join flex  justify-center ">
+            <button
+              className="join-item btn btn-outline  btn-info"
+              onClick={prePage}
+              disabled={currentpage === 1} // Disable Prev button on the first page
             >
-              <figure>
-                <img
-                  src={`${item.image[0]}`}
-                  alt="images_resort"
-                  className="object-cover w-48 md:h-auto md:w-48 md:rounded-l-lg ml-5"
-                />
-              </figure>
-              <div className="flex flex-col flex-grow justify-between p-4 leading-normal">
-                <div className="flex items-center mb-2">
-                  <BiHomeAlt className="text-lg mr-2" />
-                  <div className="text-lg font-semibold">{item.resortname}</div>
-                </div>
-
-                <div className="flex items-center">
-                  <MdPlace className="text-lg mr-2" />
-                  <div className="text-black">{item.place}</div>
-                </div>
-
-                <div className="flex items-center">
-                  <FaBed className="text-lg mr-2" />
-                  <div className="text-lg font-semibold">
-                    {item.number_room}
-                  </div>
-                </div>
-              </div>{" "}
-              <div style={resortStyle}>
+              Prev
+            </button>
+            {numbers.map((n, i) => (
+              <div
+                className={`join ${currentpage === n ? "active" : ""}`}
+                key={i}
+              >
                 <button
-                  onClick={() => handleView(item._id)}
-                  className="bg-blue-500 hover:bg-indigo-950 text-white font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                  className="join-item btn btn-outline btn-info"
+                  onClick={() => changePage(n)}
                 >
-                  View Details
+                  {n}
                 </button>
               </div>
-            </div>
-          ))
+            ))}
+            <button
+              className="join-item btn btn-outline btn-info"
+              onClick={nextPage}
+              disabled={currentpage === npage} // Disable Next button on the last page
+            >
+              Next
+            </button>
+          </div>
         )}
       </div>
-      <ToastContainer />
-      {records.length > 0 && (
-        <div className="join flex  justify-center ">
-          <button
-            className="join-item btn btn-outline  btn-info"
-            onClick={prePage}
-            disabled={currentpage === 1} // Disable Prev button on the first page
-          >
-            Prev
-          </button>
-          {numbers.map((n, i) => (
-            <div
-              className={`join ${currentpage === n ? "active" : ""}`}
-              key={i}
-            >
-              <button
-                className="join-item btn btn-outline btn-info"
-                onClick={() => changePage(n)}
-              >
-                {n}
-              </button>
-            </div>
-          ))}
-          <button
-            className="join-item btn btn-outline btn-info"
-            onClick={nextPage}
-            disabled={currentpage === npage} // Disable Next button on the last page
-          >
-            Next
-          </button>
-        </div>
-      )}
-
       <Footer />
-    </div>
+    </>
   );
 };
 

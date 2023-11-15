@@ -74,78 +74,80 @@ const Adventure = () => {
   console.log(adventure, "adventure datas are coming....");
 
   return (
-    <div className="mx-auto max-w-screen-2xl">
+    <>
       <Header />
-      <div className="">
-        {records.map((item) => (
-          <div className="flex flex-col md:flex-row items-center justify-between m-5 max-w-4xl bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 shadow-1 rounded-tl-[20px] mx-auto cursor-pointer hover:shadow-2xl transition hover:scale-105 ">
-            <div className="flex">
-              <figure>
-                <img
-                  src={`${baseUrl}${item?.image[0]}`}
-                  className="object-cover w-full md:w-48 md:h-40 md:rounded-l-lg ml-5"
-                  alt="Movie"
-                />
-              </figure>
-              <div className="flex flex-col flex-grow p-4 leading-normal">
-                <div className="flex items-center mb-2">
-                  <div className="text-lg mr-2" />
-                  <div className="text-lg font-semibold">{item.activity}</div>
-                </div>
-                <div className="flex items-center">
-                  <MdPlace className="text-lg mr-2" />
-                  <div className="text-lg font-semibold">{item.place}</div>
-                </div>
-                <div className="flex items-center">
-                  <div className="text-lg mr-2" />
-                  <div className="text-black">{item.resortName}</div>
+      <div className="mx-auto max-w-screen-2xl">
+        <div className="">
+          {records.map((item) => (
+            <div className="flex flex-col md:flex-row items-center justify-between m-5 max-w-4xl bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 shadow-1 rounded-tl-[20px] mx-auto cursor-pointer hover:shadow-2xl transition hover:scale-105 ">
+              <div className="flex">
+                <figure>
+                  <img
+                    src={`${baseUrl}${item?.image[0]}`}
+                    className="object-cover w-full md:w-48 md:h-40 md:rounded-l-lg ml-5"
+                    alt="Movie"
+                  />
+                </figure>
+                <div className="flex flex-col flex-grow p-4 leading-normal">
+                  <div className="flex items-center mb-2">
+                    <div className="text-lg mr-2" />
+                    <div className="text-lg font-semibold">{item.activity}</div>
+                  </div>
+                  <div className="flex items-center">
+                    <MdPlace className="text-lg mr-2" />
+                    <div className="text-lg font-semibold">{item.place}</div>
+                  </div>
+                  <div className="flex items-center">
+                    <div className="text-lg mr-2" />
+                    <div className="text-black">{item.resortName}</div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="h-full bg" style={adventureStyle}>
-              <button
-                onClick={() => handleView(item._id)}
-                className="bg-blue-500 hover:bg-indigo-950 text-white font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-              >
-                View Details
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
-      {records.length > 0 && (
-        <div className="join flex justify-center">
-          <button
-            className="join-item btn btn-outline btn-info"
-            onClick={prePage}
-            disabled={currentpage === 1} // Disable Prev button on the first page
-          >
-            Prev
-          </button>
-          {numbers.map((n, i) => (
-            <div
-              className={`join ${currentpage === n ? "active" : ""}`}
-              key={i}
-            >
-              <button
-                className="join-item btn btn-outline btn-info"
-                onClick={() => changePage(n)}
-              >
-                {n}
-              </button>
+              <div className="h-full bg" style={adventureStyle}>
+                <button
+                  onClick={() => handleView(item._id)}
+                  className="bg-blue-500 hover:bg-indigo-950 text-white font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                >
+                  View Details
+                </button>
+              </div>
             </div>
           ))}
-          <button
-            className="join-item btn btn-outline btn-info"
-            onClick={nextPage}
-            disabled={currentpage === npage} //
-          >
-            Next
-          </button>
         </div>
-      )}
+        {records.length > 0 && (
+          <div className="join flex justify-center">
+            <button
+              className="join-item btn btn-outline btn-info"
+              onClick={prePage}
+              disabled={currentpage === 1} // Disable Prev button on the first page
+            >
+              Prev
+            </button>
+            {numbers.map((n, i) => (
+              <div
+                className={`join ${currentpage === n ? "active" : ""}`}
+                key={i}
+              >
+                <button
+                  className="join-item btn btn-outline btn-info"
+                  onClick={() => changePage(n)}
+                >
+                  {n}
+                </button>
+              </div>
+            ))}
+            <button
+              className="join-item btn btn-outline btn-info"
+              onClick={nextPage}
+              disabled={currentpage === npage} //
+            >
+              Next
+            </button>
+          </div>
+        )}
+      </div>
       <Footer />
-    </div>
+    </>
   );
 };
 

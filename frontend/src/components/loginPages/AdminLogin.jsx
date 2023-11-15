@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch, useSelector } from "react-redux";
 import { setAdminDetails } from "../../redux/adminSlice";
@@ -28,12 +27,11 @@ const AdminLogin = () => {
   }, [navigate]);
 
   const handleSubmit = async (e) => {
-    console.log("in");
     e.preventDefault();
 
     try {
       const data = await adminlogin({ ...admin });
-      console.log("ikjhgfn", data);
+
       if (data.data) {
         console.log("in", data);
         if (data.data.errors) {
@@ -103,13 +101,6 @@ const AdminLogin = () => {
             Login
           </button>
         </form>
-        <p className="mt-4">
-          Login As A staff ?
-          <Link to="/staff/stafflogin" className="text-blue-500">
-            {" "}
-            SignIn
-          </Link>
-        </p>
       </div>
       <ToastContainer />
     </div>
